@@ -1,6 +1,7 @@
 import toDoItem from "./toDoItem";
 import toDoList from "./toDoList";
 import showIt from "./createOnScreen";
+import newItemControl from "./newItemControl";
 
 (function() {
     const list = toDoList();
@@ -13,7 +14,8 @@ import showIt from "./createOnScreen";
     });
 
     document.querySelector('.add').addEventListener('click', () => {
-        inputControl();
-        showIt(inputControl.getItem());
+        const newItem = newItemControl();
+        newItem.showPrompt();
+        showIt(newItem.getItem());
     });
 })();

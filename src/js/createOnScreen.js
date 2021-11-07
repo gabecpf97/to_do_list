@@ -1,5 +1,6 @@
 // show item and other on html file
 // DOM stuff
+import createEle from "./createEle";
 
 function showItem(item) {
     const list = document.querySelector('.list');
@@ -7,7 +8,7 @@ function showItem(item) {
 }
 
 function _appendItem (item) {
-    const itemDiv = _createDiv('', 'item');
+    const itemDiv = createEle('div', '', 'item');
     itemDiv.appendChild(item.title);
     itemDiv.appendChild(item.des);
     itemDiv.appendChild(item.date);
@@ -17,19 +18,12 @@ function _appendItem (item) {
 }
 
 function _getItem(item) {
-    const title = _createDiv(item.getTitle(), 'title');
-    const des = _createDiv(item.getDes(), 'des');
-    const date = _createDiv(item.getDate(), 'date');
-    const priority = _createDiv(item.getPriorty(), 'priorty');
-    const status = _createDiv(item.getStatus(), 'status');
+    const title = createEle('div', item.getTitle(), 'title');
+    const des = createEle('div', item.getDes(), 'des');
+    const date = createEle('div', item.getDate(), 'date');
+    const priority = createEle('div', item.getPriorty(), 'priorty');
+    const status = createEle('div', item.getStatus(), 'status');
     return {title, des, date, priority, status};
-}
-
-function _createDiv(value, className) {
-    const target = document.createElement('div');
-    target.textContent = value;
-    target.classList.add(className);
-    return target;
 }
 
 export default showItem;

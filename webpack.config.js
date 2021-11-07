@@ -8,6 +8,7 @@ module.exports = {
         toDoItem: './src/js/toDoItem.js',
         toDolist: './src/js/toDoList.js',
         createOnScreen: './src/js/createOnScreen.js',
+        newItemControl: './src/js/newItemControl.js',
     },
     devtool: 'inline-source-map',
     devServer: {

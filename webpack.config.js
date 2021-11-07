@@ -4,7 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.js',
+        index: './src/js/index.js',
+        toDoItem: './src/js/toDoItem.js',
+        listControl: './src/js/listControl.js',
+        toDolist: './src/js/toDoList.js',
+        createOnScreen: './src/js/createOnScreen.js',
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -12,7 +16,6 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'To Do List',
             template: './src/index.html',
             filename: './index.html'
         }),

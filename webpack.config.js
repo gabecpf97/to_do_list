@@ -6,7 +6,6 @@ module.exports = {
     entry: {
         index: './src/js/index.js',
         toDoItem: './src/js/toDoItem.js',
-        listControl: './src/js/listControl.js',
         toDolist: './src/js/toDoList.js',
         createOnScreen: './src/js/createOnScreen.js',
     },

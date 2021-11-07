@@ -3,6 +3,10 @@
 const toDoList = () => {
     let items = [];
 
+    const getList = () => {
+        return items;
+    }
+
     const addItem = (newItem) => {
         items.push(newItem);
     }
@@ -15,6 +19,10 @@ const toDoList = () => {
         }
     }
 
+    const removeAll = () => {
+        items = [];
+    }
+
     const showList = () => {
         let result = "";
         items.forEach(item => {
@@ -23,7 +31,7 @@ const toDoList = () => {
         return result;
     }
 
-    return {addItem, removeItem, showList};
+    return {getList, addItem, removeItem, removeAll, showList};
 };
 
 export default toDoList;

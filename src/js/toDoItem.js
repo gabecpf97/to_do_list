@@ -3,6 +3,7 @@ const toDoItem = (title, des, date, priority) => {
     let myDes = des;
     let myDate = date;
     let myPriority = priority;
+    let myStatus = false;
 
     const getTitle = () => {
         return myTitle;
@@ -32,12 +33,20 @@ const toDoItem = (title, des, date, priority) => {
         myPriority = newPriorty;
     }
 
+    const getStatus = () => {
+        return myStatus;
+    }
+
+    const setStatus = (newStatus) => {
+        myStatus = newStatus;
+    }
+
     const toString = () => {
         return `${myTitle}, ${myDate}, ${myPriority}`;
     }
 
     return {getTitle, getDes, setDes, setDate, getDate, 
-                    getPriorty, setPriorty, toString};
+                getPriorty, setPriorty, getStatus, setStatus, toString};
 };
 
 export default toDoItem;

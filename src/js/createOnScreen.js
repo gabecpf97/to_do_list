@@ -16,6 +16,7 @@ function _showItem(list_div, list, item, i) {
 
 function _appendItem (list, item, i) {
     const itemDiv = createEle('div', '', 'item');
+    itemDiv.appendChild(createEle('div', i + 1, 'num_entry'));
     itemDiv.appendChild(item.title);
     itemDiv.appendChild(item.des);
     itemDiv.appendChild(item.date);
@@ -29,7 +30,7 @@ function _getItem(item) {
     const title = createEle('div', item.getTitle(), 'title');
     const des = createEle('div', item.getDes(), 'des');
     const date = createEle('div', item.getDate(), 'date');
-    const priority = createEle('div', item.getPriorty(), 'priorty');
+    const priority = createEle('div', item.getPriority(), 'priority');
     const status = _createStatusDiv(item);
     return {title, des, date, priority, status};
 }
@@ -68,13 +69,19 @@ function _createCheck(item) {
 
 function _createDeleteButt(list, i) {
     const deleButt = createEle('button', 'Delete', 'delete');
-    deleButt.addEventListener('click', e => _removeItem(e, list, i));
+    deleButt.addEventListener('click', e => _deleteEntry(list, i));
     return deleButt;
 }
 
-function _removeItem(e, list, i) {
+function _deleteEntry(list, i) {
+    _removeItem(list, i);
+    showList(list);
+}
+
+function _removeItem(list, i) {
     const list_div = document.querySelector('.list');
-    list_div.removeChild(e.target.parentNode);
+    while (list_div.firstChild != null) 
+        list_div.removeChild(list_div.firstChild);
     list.removeItem(i);
 }
 

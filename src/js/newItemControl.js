@@ -21,11 +21,11 @@ function _enableNewButt() {
 }
 
 function _displayPrompt() {
-    const content = document.querySelector('.content');
+    const newItemDiv = document.querySelector('.newItem');
     const prompt_div = _appendPrompts(_promptQ());
     const fin_butt = createEle('button', 'Create', 'fin');
-    content.appendChild(prompt_div);
-    content.appendChild(fin_butt);
+    newItemDiv.appendChild(prompt_div);
+    newItemDiv.appendChild(fin_butt);
 }
 
 const _promptQ = () => {
@@ -42,7 +42,7 @@ function _appendPrompts(prompts) {
     const title_div = _createLableInput(prompts.askTitle, 'in_title');
     const des_div = _createLableInput(prompts.askDes, 'in_des');
     const date_div = _createLableInput(prompts.askDate, 'in_date');
-    const priority_div = _createLableInput(prompts.askPriority, 'in_priority');
+    const priority_div = _createPriorityDiv(prompts.askPriority);
     prompt_div.appendChild(title_div);
     prompt_div.appendChild(des_div);
     prompt_div.appendChild(date_div);
@@ -59,6 +59,28 @@ function _createLableInput(question, className) {
     q_div.appendChild(answer);
     
     return q_div;
+}
+
+function _createPriorityDiv(question) {
+    const priorityDiv = createEle('div', '', 'priorityDiv');
+    const priorityLabel = createEle('label', question, 'in_priority');
+    const prioritySelect = createEle('select', '', 'in_priority_ans');
+    prioritySelect.name = 'priority';
+    const optionTop = _createOption('top');
+    const optionMid = _createOption('middle');
+    const optionLow = _createOption('low');
+    prioritySelect.appendChild(optionTop);
+    prioritySelect.appendChild(optionMid);
+    prioritySelect.appendChild(optionLow);
+    priorityDiv.appendChild(priorityLabel);
+    priorityDiv.appendChild(prioritySelect);
+    return priorityDiv;
+}
+
+function _createOption(priority) {
+    const option = createEle('option', priority, `in_options_${priority}`);
+    option.value = priority;
+    return option;
 }
 
 function _storeItem (list) {
@@ -89,9 +111,9 @@ function inputToItem(input) {
 }
 
 function _removePrompt() {
-    const content = document.querySelector('.content');
-    content.removeChild(document.querySelector('.prompts'));
-    content.removeChild(document.querySelector('.fin'));
+    const newItemDiv = document.querySelector('.newItem');
+    newItemDiv.removeChild(document.querySelector('.prompts'));
+    newItemDiv.removeChild(document.querySelector('.fin'));
 }
 
 function _storeIt(list, newItem) {

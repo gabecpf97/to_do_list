@@ -2,6 +2,10 @@ h1 {
     text-align: center;
 }
 
+form {
+    display: none;
+}
+
 .list {
     display: flex;
     flex-direction: column;

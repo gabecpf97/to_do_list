@@ -25,12 +25,12 @@ const toDoItem = (title, des, date, priority) => {
         myDate = newDate;
     }
 
-    const getPriorty = () => {
+    const getPriority = () => {
         return myPriority;
     }
 
-    const setPriorty = (newPriorty) => {
-        myPriority = newPriorty;
+    const setPriority = (newPriority) => {
+        myPriority = newPriority;
     }
 
     const getStatus = () => {
@@ -46,7 +46,7 @@ const toDoItem = (title, des, date, priority) => {
     }
 
     return {getTitle, getDes, setDes, setDate, getDate, 
-                getPriorty, setPriorty, getStatus, setStatus, toString};
+                getPriority, setPriority, getStatus, setStatus, toString};
 };
 
 export default toDoItem;

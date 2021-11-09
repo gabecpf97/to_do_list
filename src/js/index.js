@@ -9,13 +9,10 @@ import newItemControl from "./newItemControl";
     list.addItem(toDoItem('test1', 'testing 1', 'today', 'low'));
     list.addItem(toDoItem('test2', 'testing 2', 'today', 'low'));
 
-    list.getList().forEach(item => {
-        showIt(item);
-    });
+    showIt(list);
 
     document.querySelector('.add').addEventListener('click', () => {
         const newItem = newItemControl();
-        newItem.showPrompt();
-        showIt(newItem.getItem());
+        newItem.storeNewItem(list);
     });
 })();

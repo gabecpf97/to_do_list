@@ -2,8 +2,15 @@
 // DOM stuff
 import createEle from "./createEle";
 
-function showItem(item) {
-    const list = document.querySelector('.list');
+function showList(list) {
+    const list_div = document.querySelector('.list');
+    _clearScreen(list_div);
+    list.getList().forEach(item => {
+        _showItem(list_div, item);
+    });
+}
+
+function _showItem(list, item) {
     list.appendChild(_appendItem(_getItem(item)));
 }
 
@@ -25,5 +32,9 @@ function _getItem(item) {
     const status = createEle('div', item.getStatus(), 'status');
     return {title, des, date, priority, status};
 }
+function _clearScreen(list_div) {
+    while(list_div.firstChild != null)
+        list_div.removeChild(list_div.firstChild);
+}
 
-export default showItem;
+export default showList;

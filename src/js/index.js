@@ -2,6 +2,7 @@ import toDoItem from "./toDoItem";
 import toDoList from "./toDoList";
 import showIt from "./createOnScreen";
 import newItemControl from "./newItemControl";
+import '../style.css'
 
 (function() {
     const list = toDoList();
@@ -15,4 +16,5 @@ import newItemControl from "./newItemControl";
         const newItem = newItemControl();
         newItem.storeNewItem(list);
     });
+    
 })();

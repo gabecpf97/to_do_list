@@ -37,8 +37,8 @@ const toDoItem = (title, des, date, priority) => {
         return myStatus;
     }
 
-    const setStatus = (newStatus) => {
-        myStatus = newStatus;
+    const setStatus = () => {
+        myStatus = !myStatus;
     }
 
     const toString = () => {

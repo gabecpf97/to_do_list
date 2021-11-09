@@ -12,11 +12,7 @@ const toDoList = () => {
     }
 
     const removeItem = (target) => {
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].getTitle() == target.getTitle()) {
-                items.splice(i, 1);
-            }
-        }
+        items.splice(target, 1);
     }
 
     const removeAll = () => {

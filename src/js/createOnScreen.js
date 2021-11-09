@@ -5,23 +5,23 @@ import createEle from "./createEle";
 function showList(list) {
     const list_div = document.querySelector('.list');
     _clearScreen(list_div);
-    list.getList().forEach(item => {
-        _showItem(list_div, item);
-    });
+    for (let i = 0; i < list.getList().length; i++) {
+        _showItem(list_div, list, list.getList()[i], i);
+    }
 }
 
-function _showItem(list, item) {
-    list.appendChild(_appendItem(_getItem(item)));
+function _showItem(list_div, list, item, i) {
+    list_div.appendChild(_appendItem(list, _getItem(item), i));
 }
 
-function _appendItem (item) {
+function _appendItem (list, item, i) {
     const itemDiv = createEle('div', '', 'item');
     itemDiv.appendChild(item.title);
     itemDiv.appendChild(item.des);
     itemDiv.appendChild(item.date);
     itemDiv.appendChild(item.priority);
     itemDiv.appendChild(item.status);
-    itemDiv.appendChild(_createDeleteButt());
+    itemDiv.appendChild(_createDeleteButt(list, i));
     return itemDiv;
 }
 
@@ -49,7 +49,7 @@ function _createStatusDiv(item) {
 }
 
 function _createLabel() {
-    const statusLabel = createEle('label', 'Completed?', 'status_l');
+    const statusLabel = createEle('label', 'Completed', 'status_l');
     statusLabel.htmlFor = 'status';
     return statusLabel;
 }
@@ -60,19 +60,22 @@ function _createCheck(item) {
     statusCheck.name = 'status';
     if (item.getStatus())
         statusCheck.checked = true;
-    statusCheck.addEventListener('change', item.setStatus());
+    statusCheck.addEventListener('change', () => {
+        item.setStatus();
+    });
     return statusCheck;
 }
 
-function _createDeleteButt() {
+function _createDeleteButt(list, i) {
     const deleButt = createEle('button', 'Delete', 'delete');
-    deleButt.addEventListener('click', e => _removeItem(e));
+    deleButt.addEventListener('click', e => _removeItem(e, list, i));
     return deleButt;
 }
 
-function _removeItem(e) {
-    const list = document.querySelector('.list');
-    list.removeChild(e.target.parentNode);
+function _removeItem(e, list, i) {
+    const list_div = document.querySelector('.list');
+    list_div.removeChild(e.target.parentNode);
+    list.removeItem(i);
 }
 
 export default showList;

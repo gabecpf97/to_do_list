@@ -4,11 +4,20 @@ import showIt from "./createOnScreen";
 
 const  newItemControl = () => {
     const storeNewItem = (list) => {
+        _disableNewButt();
         _displayPrompt();
         _storeItem(list);
     }
 
     return {storeNewItem};
+}
+
+function _disableNewButt() {
+    document.querySelector('.add').disabled = true;
+}
+
+function _enableNewButt() {
+    document.querySelector('.add').disabled = false;
 }
 
 function _displayPrompt() {
@@ -56,6 +65,7 @@ function _storeItem (list) {
     document.querySelector('.fin').addEventListener('click', () => {
         const newItem = _getItem();
         _storeIt(list, newItem);
+        _enableNewButt();
     });
 }
 

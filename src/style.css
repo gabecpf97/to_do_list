@@ -1,3 +1,7 @@
+body {
+    background: #e1ad6d;
+}
+
 h1 {
     text-align: center;
 }
@@ -5,12 +9,21 @@ h1 {
 .list {
     display: flex;
     flex-direction: column;
+    border: #345 solid;
+    border-bottom: none;
 }
 
 .item {
     padding: 10px;
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 15px 0.25fr 1fr 100px 100px 100px 100px;
+    border-bottom: #345 solid;
+}
+
+.des {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .newItem {
@@ -28,6 +41,31 @@ h1 {
     left: 50%;
     transform: translate(-50%, -50%);
     background: cyan;
+    padding: 20px;
+    border: black solid;
+}
+
+.q_div {
+    padding-bottom: 10px;
+}
+
+.in {
+    display: block;
+}
+
+.in_des_ans {
+    height: 250px;
+    width: 600px;
+}
+
+.butt_div {
+    display: flex;
+    justify-content: space-between;
+}
+
+input,
+select {
+    border: black solid;
 }
 
 .hide {

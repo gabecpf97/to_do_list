@@ -31,8 +31,7 @@ function _clickedOutside() {
 
 function _displayPrompt() {
     const elements = _createPromptEle();
-    elements.prompt_div.appendChild(elements.fin_butt);
-    elements.prompt_div.appendChild(elements.cancel_butt);
+    elements.prompt_div.appendChild(elements.butt_div);
     elements.newItemDiv.appendChild(elements.prompt_div);
 }
 
@@ -41,9 +40,12 @@ function _createPromptEle() {
     const prompt_div = _appendPrompts(_promptQ());
     const fin_butt = createEle('button', 'Add', 'fin');
     const cancel_butt = createEle('button', 'Cancel', 'cancel');
+    const butt_div = createEle('div', '', 'butt_div');
+    butt_div.appendChild(fin_butt);
+    butt_div.appendChild(cancel_butt);
     _clickToCancel(cancel_butt);
     _clickedOutside();
-    return {newItemDiv, prompt_div, fin_butt, cancel_butt};
+    return {newItemDiv, prompt_div, butt_div};
 }
 
 function _clickToCancel(butt) {
@@ -61,9 +63,9 @@ const _promptQ = () => {
 
 function _appendPrompts(prompts) {
     const prompt_div = createEle('div', '', 'prompts');
-    const title_div = _createLableInput(prompts.askTitle, 'in_title');
-    const des_div = _createLableInput(prompts.askDes, 'in_des');
-    const date_div = _createLableInput(prompts.askDate, 'in_date');
+    const title_div = _createLableInput(prompts.askTitle, 'input', 'in_title');
+    const des_div = _createLableInput(prompts.askDes, 'textarea', 'in_des');
+    const date_div = _createLableInput(prompts.askDate, 'input', 'in_date');
     const priority_div = _createPriorityDiv(prompts.askPriority);
     prompt_div.appendChild(title_div);
     prompt_div.appendChild(des_div);
@@ -73,10 +75,10 @@ function _appendPrompts(prompts) {
     return prompt_div;
 }
 
-function _createLableInput(question, className) {
+function _createLableInput(question, type, className) {
     const q_div = createEle('div', '', 'q_div');
-    const label = createEle('label', question, className);
-    const answer = createEle('input', '', `${className}_ans`);
+    const label = createEle('label', question, 'in');
+    const answer = createEle(type, '', `${className}_ans`);
     q_div.appendChild(label);
     q_div.appendChild(answer);
     
@@ -84,8 +86,8 @@ function _createLableInput(question, className) {
 }
 
 function _createPriorityDiv(question) {
-    const priorityDiv = createEle('div', '', 'priorityDiv');
-    const priorityLabel = createEle('label', question, 'in_priority');
+    const priorityDiv = createEle('div', '', 'q_div');
+    const priorityLabel = createEle('label', question, 'in');
     const prioritySelect = createEle('select', '', 'in_priority_ans');
     prioritySelect.name = 'priority';
     const optionTop = _createOption('top');
@@ -96,6 +98,7 @@ function _createPriorityDiv(question) {
     prioritySelect.appendChild(optionLow);
     priorityDiv.appendChild(priorityLabel);
     priorityDiv.appendChild(prioritySelect);
+    
     return priorityDiv;
 }
 

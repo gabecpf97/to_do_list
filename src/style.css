@@ -2,10 +2,6 @@ h1 {
     text-align: center;
 }
 
-form {
-    display: none;
-}
-
 .list {
     display: flex;
     flex-direction: column;
@@ -17,3 +13,23 @@ form {
     justify-content: space-evenly;
 }
 
+.newItem {
+    background: rgba(10, 10, 10, 0.56);
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: absolute;
+}
+
+.prompts {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: cyan;
+}
+
+.hide {
+    display: none;
+}

@@ -13,8 +13,13 @@ import '../style.css'
     showIt(list);
 
     document.querySelector('.add').addEventListener('click', () => {
+        _showForm();
         const newItem = newItemControl();
         newItem.storeNewItem(list);
     });
+
+    function _showForm() {
+        document.querySelector('.newItem').classList.remove('hide');
+    }
     
 })();

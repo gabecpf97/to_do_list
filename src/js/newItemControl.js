@@ -20,12 +20,34 @@ function _enableNewButt() {
     document.querySelector('.add').disabled = false;
 }
 
+function _clickedOutside() {
+    const newItem = document.querySelector('.newItem');
+    newItem.addEventListener('click', (e) => {
+        if (e.currentTarget == e.target)
+            _removePrompt();
+    }, {once: true});
+
+}
+
 function _displayPrompt() {
+    const elements = _createPromptEle();
+    elements.prompt_div.appendChild(elements.fin_butt);
+    elements.prompt_div.appendChild(elements.cancel_butt);
+    elements.newItemDiv.appendChild(elements.prompt_div);
+}
+
+function _createPromptEle() {
     const newItemDiv = document.querySelector('.newItem');
     const prompt_div = _appendPrompts(_promptQ());
-    const fin_butt = createEle('button', 'Create', 'fin');
-    newItemDiv.appendChild(prompt_div);
-    newItemDiv.appendChild(fin_butt);
+    const fin_butt = createEle('button', 'Add', 'fin');
+    const cancel_butt = createEle('button', 'Cancel', 'cancel');
+    _clickToCancel(cancel_butt);
+    _clickedOutside();
+    return {newItemDiv, prompt_div, fin_butt, cancel_butt};
+}
+
+function _clickToCancel(butt) {
+    butt.addEventListener('click', _removePrompt, {once: true});
 }
 
 const _promptQ = () => {
@@ -87,7 +109,6 @@ function _storeItem (list) {
     document.querySelector('.fin').addEventListener('click', () => {
         const newItem = _getItem();
         _storeIt(list, newItem);
-        _enableNewButt();
     });
 }
 
@@ -113,7 +134,8 @@ function inputToItem(input) {
 function _removePrompt() {
     const newItemDiv = document.querySelector('.newItem');
     newItemDiv.removeChild(document.querySelector('.prompts'));
-    newItemDiv.removeChild(document.querySelector('.fin'));
+    newItemDiv.classList.add('hide');
+    _enableNewButt();
 }
 
 function _storeIt(list, newItem) {

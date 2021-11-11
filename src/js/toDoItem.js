@@ -8,6 +8,10 @@ const toDoItem = (title, des, date, priority) => {
     const getTitle = () => {
         return myTitle;
     }
+
+    const setTitle = (newTitle) => {
+        myTitle = newTitle;
+    }
     
     const getDes = () => {
         return myDes;
@@ -45,7 +49,7 @@ const toDoItem = (title, des, date, priority) => {
         return `${myTitle}, ${myDate}, ${myPriority}`;
     }
 
-    return {getTitle, getDes, setDes, setDate, getDate, 
+    return {getTitle, setTitle, getDes, setDes, setDate, getDate, 
                 getPriority, setPriority, getStatus, setStatus, toString};
 };
 

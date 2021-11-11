@@ -1,29 +1,34 @@
 import createEle from "./createEle";
 
 const createPrompt = () => {
-    const createIt = (name, listName) => {
-        _displayPrompt(name, listName);
+    const createIt = (name) => {
+        _displayPrompt(name);
     }
 
     return {createIt};
 }
 
-function _displayPrompt(name, listName) {
-    const elements = _createPromptEle(name, listName);
+function _displayPrompt(name) {
+    _showForm();
+    const elements = _createPromptEle(name);
     elements.prompt_div.appendChild(elements.butt_div);
     elements.newItemDiv.appendChild(elements.prompt_div);
 }
 
-function _createPromptEle(name, listName) {
-    const newItemDiv = document.querySelector(`.newItem_${listName}`);
-    const prompt_div = _appendPrompts(_promptQ(), listName);
+function _showForm() {
+    document.querySelector(`.newItem`).classList.remove('hide');
+}
+
+function _createPromptEle(name) {
+    const newItemDiv = document.querySelector(`.newItem`);
+    const prompt_div = _appendPrompts(_promptQ());
     const fin_butt = createEle('button', name, 'fin');
     const cancel_butt = createEle('button', 'Cancel', 'cancel');
     const butt_div = createEle('div', '', 'butt_div');
     butt_div.appendChild(fin_butt);
     butt_div.appendChild(cancel_butt);
-    _clickToCancel(cancel_butt, listName);
-    _clickedOutside(listName);
+    _clickToCancel(cancel_butt);
+    _clickedOutside();
     return {newItemDiv, prompt_div, butt_div};
 }
 
@@ -36,9 +41,8 @@ const _promptQ = () => {
     return {askTitle, askDes, askDate, askPriority};
 }
 
-function _appendPrompts(prompts, name) {
-    const prompt_div = createEle('div', '', `prompts_${name}`);
-    prompt_div.classList.add('prompts');
+function _appendPrompts(prompts) {
+    const prompt_div = createEle('div', '', `prompts`);
     const title_div = _createLableInput(prompts.askTitle, 'input', 'in_title');
     const des_div = _createLableInput(prompts.askDes, 'textarea', 'in_des');
     const date_div = _createLableInput(prompts.askDate, 'input', 'in_date');
@@ -84,28 +88,28 @@ function _createOption(priority) {
     return option;
 }
 
-function _clickToCancel(butt, listName) {
-    butt.addEventListener('click', () => _removePrompt(listName), {once: true});
+function _clickToCancel(butt) {
+    butt.addEventListener('click', () => _removePrompt(), {once: true});
 }
 
-function _clickedOutside(listName) {
-    const newItem = document.querySelector(`.newItem_${listName}`);
+function _clickedOutside() {
+    const newItem = document.querySelector(`.newItem`);
     newItem.addEventListener('click', (e) => {
         if (e.currentTarget == e.target)
-            _removePrompt(listName);
+            _removePrompt();
     }, {once: true});
 
 }
 
-function _removePrompt(listName) {
-    const newItemDiv = document.querySelector(`.newItem_${listName}`);
-    newItemDiv.removeChild(document.querySelector(`.prompts_${listName}`));
+function _removePrompt() {
+    const newItemDiv = document.querySelector(`.newItem`);
+    newItemDiv.removeChild(document.querySelector(`.prompts`));
     newItemDiv.classList.add('hide');
-    _enableNewButt(listName);
+    _enableNewButt();
 }
 
-function _enableNewButt(listName) {
-    document.querySelector(`.add_${listName}`).disabled = false;
+function _enableNewButt() {
+    document.querySelector(`.add`).disabled = false;
 }
 
 

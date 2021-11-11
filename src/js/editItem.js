@@ -2,17 +2,17 @@ import showList from "./createOnScreen";
 import createPrompt from './createPrompt';
 
 const editItem = () => {
-    const editIt = (name, item, list) => {
-        _showForm(list.getName());
-        createPrompt().createIt(name, list.getName());
+    const editIt = (item, list) => {
+        _showForm();
+        createPrompt().createIt('SAVE');
         _fillData(item);
         _changeData(item, list);
     }
     return {editIt};
 }
 
-function _showForm(name) {
-    document.querySelector(`.newItem_${name}`).classList.remove('hide');
+function _showForm() {
+    document.querySelector(`.newItem`).classList.remove('hide');
 }
 
 function _fillData(item) {
@@ -35,7 +35,7 @@ const _promptA = () => {
 function _changeData(item, list) {
     document.querySelector('.fin').addEventListener('click', () =>  {
         _storeChanges(item);
-        _removePrompt(list.getName());
+        _removePrompt();
         if (list.getList() != null)
             showList(list);
     });
@@ -49,9 +49,9 @@ function _storeChanges(item) {
     item.setPriority(input.priority.value);
 }
 
-function _removePrompt(name) {
-    const newItemDiv = document.querySelector(`.newItem_${name}`);
-    newItemDiv.removeChild(document.querySelector(`.prompts_${name}`));
+function _removePrompt() {
+    const newItemDiv = document.querySelector(`.newItem`);
+    newItemDiv.removeChild(document.querySelector(`.prompts`));
     newItemDiv.classList.add('hide');
 }
 

@@ -24,15 +24,13 @@ function _displayHeader(list) {
 }
 
 function _createListHeader(list) {
-    const projectName = list.getName();
-    const addButt = createEle('button', 'add', `add_${projectName}`);
+    const name = list.getName().replace(' ', '_');
+    const addButt = createEle('button', 'add item', `add${name}`);
     addButt.classList.add('add');
     addButt.addEventListener('click', () => _clickToAdd(list));
-    const newItemDiv = createEle('div', '', `newItem_${projectName}`);
-    newItemDiv.classList.add('newItem');
+    const newItemDiv = createEle('div', '', `newItem`);
     newItemDiv.classList.add('hide');
-    const listDiv = createEle('div', '', `list_${projectName}`);
-    listDiv.classList.add('list');
+    const listDiv = createEle('div', '', `list`);
     return {addButt, newItemDiv, listDiv};
 }
 
@@ -40,13 +38,26 @@ function _createTab(projects) {
     const tabDiv = createEle('div', '', 'tab');
     projects.getProjects().forEach(list => {
         const name = list.getName();
-        const nameButt = createEle('button', `${name}`, `${name}_butt`);
-        nameButt.classList.add('project_butt');
+        const nameButt = createEle('button', `${name}`, `project_butt`);
+        // nameButt.classList.add('project_butt');
         nameButt.addEventListener('click', () => _changeToProject(list));
         tabDiv.appendChild(nameButt);
     })
     tabDiv.appendChild(_createAddProjectButt(projects));
     return tabDiv;
+}
+
+function _changeToProject(list) {
+    _clearList();
+    _displayHeader(list);
+    showList(list);
+}
+
+function _clearList() {
+    const content = document.querySelector('.content');
+    content.removeChild(document.querySelector('.add'));
+    content.removeChild(document.querySelector('.newItem'));
+    content.removeChild(document.querySelector('.list'));
 }
 
 function _createAddProjectButt(projects) {
@@ -56,7 +67,7 @@ function _createAddProjectButt(projects) {
 }
 
 function _addProject(projects) {
-    const proj_prompt = prompt('Project Name:', 'Enter Name');
+    const proj_prompt = prompt('Project Name:', 'New_project');
     const newList = toDoList(proj_prompt);
     projects.addList(newList);
     _clearHeader();
@@ -70,20 +81,15 @@ function _clearHeader() {
 }
 
 function _clickToAdd(list) {
-    _showForm(list);
     const newItem = newItemControl();
+    console.log(list.getList());
     newItem.storeNewItem(list);
-}
-
-function _showForm(list) {
-    const projectName = list.getName();
-    document.querySelector(`.newItem_${projectName}`).classList.remove('hide');
 }
 
 function _appendEle (ele) {
     const content = document.querySelector('.content');
     for (const element in ele) {
-        content.append(ele[element]);
+        content.appendChild(ele[element]);
     }
 }
 

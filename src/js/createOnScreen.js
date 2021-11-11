@@ -2,13 +2,24 @@
 // DOM stuff
 import createEle from "./createEle";
 import editItem from "./editItem";
+import newItemControl from "./newItemControl";
 
 function showList(list) {
     const list_div = document.querySelector('.list');
     _clearScreen(list_div);
-    for (let i = 0; i < list.getList().length; i++) {
-        _showItem(list_div, list, list.getList()[i], i);
+    if (list.getList()[0] == undefined)
+        _showEmpty(list_div, list);
+    else {
+        for (let i = 0; i < list.getList().length; i++) {
+            _showItem(list_div, list, list.getList()[i], i);
+        }
     }
+}
+
+function _showEmpty(list_div, list) {
+    const emptyDiv = createEle('div', 'click here to add new item', 'empty_item');
+    list_div.appendChild(emptyDiv);
+    emptyDiv.addEventListener('click', () => newItemControl().storeNewItem(list));
 }
 
 function _showItem(list_div, list, item, i) {
@@ -16,8 +27,7 @@ function _showItem(list_div, list, item, i) {
 }
 
 function _appendItem (list, item_div, item, i) {
-    const listName = list.getName();
-    const itemDiv = createEle('div', '', `item_${listName}`);
+    const itemDiv = createEle('div', '', `item`);
     itemDiv.classList.add('item');
     itemDiv.appendChild(_createBasicDiv(list, item_div, item, i));
     itemDiv.appendChild(_createDes(item_div.des));
@@ -96,7 +106,7 @@ function _removeItem(list, i) {
 
 function _createEditButt(item, list) {
     const editButt = createEle('button', 'edit', 'edit');
-    editButt.addEventListener('click', () => editItem().editIt('edit', item, list));
+    editButt.addEventListener('click', () => editItem().editIt(item, list));
     return editButt;
 }
 

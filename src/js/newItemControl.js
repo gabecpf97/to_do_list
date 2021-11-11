@@ -4,32 +4,32 @@ import createPrompt from "./createPrompt";
 
 const  newItemControl = () => {
     const storeNewItem = (list) => {
-        _disableNewButt(list.getName());
-        createPrompt().createIt('add', list.getName());
+        _disableNewButt();
+        createPrompt().createIt('add');
         _storeItem(list);
     }
 
     return {storeNewItem};
 }
 
-function _disableNewButt(name) {
-    document.querySelector(`.add_${name}`).disabled = true;
+function _disableNewButt() {
+    document.querySelector(`.add`).disabled = true;
 }
 
-function _enableNewButt(name) {
-    document.querySelector(`.add_${name}`).disabled = false;
+function _enableNewButt() {
+    document.querySelector(`.add`).disabled = false;
 }
 
 function _storeItem (list) {
     document.querySelector('.fin').addEventListener('click', () => {
-        const newItem = _getItem(list.getName());
+        const newItem = _getItem();
         _storeIt(list, newItem);
     });
 }
 
-function _getItem(name) {
+function _getItem() {
     let input = _promptA();
-    _removePrompt(name);
+    _removePrompt();
     return inputToItem(input);
 }
 
@@ -46,11 +46,11 @@ function inputToItem(input) {
     return toDoItem(input.title, input.des, input.date, input.priority);
 }
 
-function _removePrompt(name) {
+function _removePrompt() {
     const newItemDiv = document.querySelector('.newItem');
     newItemDiv.removeChild(document.querySelector('.prompts'));
     newItemDiv.classList.add('hide');
-    _enableNewButt(name);
+    _enableNewButt();
 }
 
 function _storeIt(list, newItem) {

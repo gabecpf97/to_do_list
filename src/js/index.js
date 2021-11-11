@@ -16,5 +16,4 @@ import showProjects from "./showProjects";
     projects.addList(list);
     
     showProjects(projects);
-
 })();

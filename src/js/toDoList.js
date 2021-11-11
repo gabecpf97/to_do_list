@@ -72,7 +72,18 @@ const toDoList = (name) => {
         }
     }
 
-    return {getName, setName, getList, addItem, removeItem, removeAll, showList};
+    function toString() {
+        let listString = `${myName}:`;
+        items.forEach(item => {
+            listString += '[' + item.toString() + ']';
+            listString += '.';
+        });
+        listString = listString.substring(0, listString.length - 1);
+        return listString;
+    }
+
+    return {getName, setName, getList, addItem, removeItem, removeAll, 
+                showList, toString};
 };
 
 export default toDoList;

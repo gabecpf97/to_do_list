@@ -13,6 +13,7 @@ module.exports = {
         editItem: './src/js/editItem.js',
         listControl: './src/js/listControl.js',
         showProjects: './src/js/showProjects.js',
+        storeLocally: './src/js/storeLocally.js',
     },
     devtool: 'inline-source-map',
     devServer: {

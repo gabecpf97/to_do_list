@@ -46,7 +46,7 @@ const toDoItem = (title, des, date, priority) => {
     }
 
     const toString = () => {
-        return `${myTitle}, ${myDate}, ${myPriority}`;
+        return `${myTitle},${myDes},${myDate},${myPriority},${myStatus}`;
     }
 
     return {getTitle, setTitle, getDes, setDes, setDate, getDate, 

@@ -70,8 +70,24 @@ function _addProject(projects) {
     const proj_prompt = prompt('Project Name:', 'New_project');
     const newList = toDoList(proj_prompt);
     projects.addList(newList);
+    const str = JSON.stringify(projects.toString())
+    checkJson(str);
     _clearHeader();
     document.querySelector('.headerDiv').appendChild(_createTab(projects));
+}
+
+function checkJson(str) {
+    const projects = str.substring(1, str.length - 1).split('|');
+    console.log(projects);
+    const nameitems = projects[0].substring(1, projects[0].length - 1).split(':');
+    console.log(nameitems[0]);
+    console.log(nameitems[1]);
+    const itemArr = [];
+    const items = nameitems[1].split('.');
+    items.forEach(item => {
+        console.log(item.substring(1, item.length - 1));
+        itemArr.push()
+    })
 }
 
 function _clearHeader() {

@@ -31,7 +31,7 @@ function _createListHeader(list) {
     const newItemDiv = createEle('div', '', `newItem`);
     newItemDiv.classList.add('hide');
     const listDiv = createEle('div', '', `list`);
-    return {addButt, newItemDiv, listDiv};
+    return {newItemDiv, listDiv, addButt};
 }
 
 function _createTab(projects) {
@@ -39,7 +39,6 @@ function _createTab(projects) {
     projects.getProjects().forEach(list => {
         const name = list.getName();
         const nameButt = createEle('button', `${name}`, `project_butt`);
-        // nameButt.classList.add('project_butt');
         nameButt.addEventListener('click', () => _changeToProject(list));
         tabDiv.appendChild(nameButt);
     })
@@ -55,9 +54,10 @@ function _changeToProject(list) {
 
 function _clearList() {
     const content = document.querySelector('.content');
-    content.removeChild(document.querySelector('.add'));
-    content.removeChild(document.querySelector('.newItem'));
-    content.removeChild(document.querySelector('.list'));
+    // content.removeChild(document.querySelector('.add'));
+    // content.removeChild(document.querySelector('.newItem'));
+    // content.removeChild(document.querySelector('.list'));
+    content.removeChild(document.querySelector('.listDiv'));
 }
 
 function _createAddProjectButt(projects) {
@@ -88,9 +88,11 @@ function _clickToAdd(list) {
 
 function _appendEle (ele) {
     const content = document.querySelector('.content');
+    const listDiv = createEle('div', '', 'listDiv');
     for (const element in ele) {
-        content.appendChild(ele[element]);
+        listDiv.appendChild(ele[element]);
     }
+    content.appendChild(listDiv);
 }
 
 export default showProjects;

@@ -11,7 +11,8 @@ module.exports = {
         newItemControl: './src/js/newItemControl.js',
         createPrompt: './src/js/createPrompt.js',
         editItem: './src/js/editItem.js',
-        itemControl: './src/js/itemControl.js',
+        listControl: './src/js/listControl.js',
+        showProjects: './src/js/showProjects.js',
     },
     devtool: 'inline-source-map',
     devServer: {

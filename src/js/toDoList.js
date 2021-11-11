@@ -1,16 +1,24 @@
 // object that store all item
 
-const toDoList = () => {
+const toDoList = (name) => {
+    let myName = name;
     let items = [];
     let midIndex = items.length;
     let lowIndex = items.length;
+
+    const getName = () => {
+        return myName;
+    }
+
+    const setName = (newName) => {
+        myName = newName;
+    }
 
     const getList = () => {
         return items;
     }
 
     const addItem = (newItem) => {
-        // items.push(newItem);
         const pri = newItem.getPriority();
         _placeItemByPriority(pri, newItem);
     }
@@ -64,7 +72,7 @@ const toDoList = () => {
         }
     }
 
-    return {getList, addItem, removeItem, removeAll, showList};
+    return {getName, setName, getList, addItem, removeItem, removeAll, showList};
 };
 
 export default toDoList;

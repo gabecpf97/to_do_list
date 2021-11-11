@@ -16,7 +16,9 @@ function _showItem(list_div, list, item, i) {
 }
 
 function _appendItem (list, item_div, item, i) {
-    const itemDiv = createEle('div', '', 'item');
+    const listName = list.getName();
+    const itemDiv = createEle('div', '', `item_${listName}`);
+    itemDiv.classList.add('item');
     itemDiv.appendChild(_createBasicDiv(list, item_div, item, i));
     itemDiv.appendChild(_createDes(item_div.des));
     return itemDiv;
@@ -52,7 +54,6 @@ function _createStatusDiv(item) {
     const statusDiv = createEle('div', '', 'status');
     const statusLabel = _createLabel();
     const statusCheck = _createCheck(item);
-    // statusDiv.appendChild(statusLabel);
     statusDiv.appendChild(statusCheck);
     return statusDiv;
 }

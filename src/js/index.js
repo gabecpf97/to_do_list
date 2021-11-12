@@ -5,15 +5,15 @@ import newItemControl from "./newItemControl";
 import '../style.css'
 import listControl from "./listControl";
 import showProjects from "./showProjects";
+import storeLocally from "./storeLocally";
 
 (function() {
-    const list = toDoList('Default');
-
-    list.addItem(toDoItem('test1', 'testing 1', 'today', 'low'));
-    list.addItem(toDoItem('test2', 'testing 2', 'today', 'low'));
-    
-    const projects = listControl();
-    projects.addList(list);
+    let projects = storeLocally().getFromLocal();
+    if (projects == undefined) {
+        const list = toDoList('Default');
+        projects = listControl();
+        projects.addList(list);
+    }
     
     showProjects(projects);
 })();

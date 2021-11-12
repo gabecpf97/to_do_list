@@ -1,12 +1,14 @@
 import showList from "./createOnScreen";
 import createPrompt from './createPrompt';
+import storeLocally from './storeLocally';
 
 const editItem = () => {
-    const editIt = (item, list) => {
+    const editIt = (item, list, projects) => {
         _showForm();
         createPrompt().createIt('SAVE');
         _fillData(item);
         _changeData(item, list);
+        storeLocally().storeProject(projects);
     }
     return {editIt};
 }

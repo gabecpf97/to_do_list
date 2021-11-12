@@ -1,12 +1,13 @@
 import toDoItem from "./toDoItem";
 import showIt from "./createOnScreen";
 import createPrompt from "./createPrompt";
+import storeLocally from "./storeLocally";
 
 const  newItemControl = () => {
-    const storeNewItem = (list) => {
+    const storeNewItem = (list, projects) => {
         _disableNewButt();
         createPrompt().createIt('add');
-        _storeItem(list);
+        _storeItem(list, projects);
     }
 
     return {storeNewItem};
@@ -20,10 +21,10 @@ function _enableNewButt() {
     document.querySelector(`.add`).disabled = false;
 }
 
-function _storeItem (list) {
+function _storeItem (list, projects) {
     document.querySelector('.fin').addEventListener('click', () => {
         const newItem = _getItem();
-        _storeIt(list, newItem);
+        _storeIt(list, newItem, projects);
     });
 }
 
@@ -53,9 +54,10 @@ function _removePrompt() {
     _enableNewButt();
 }
 
-function _storeIt(list, newItem) {
+function _storeIt(list, newItem, projects) {
     list.addItem(newItem);
-    showIt(list);
+    showIt(list, projects);
+    storeLocally().storeProject(projects);
 }
 
 export default newItemControl;

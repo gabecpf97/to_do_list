@@ -2,12 +2,14 @@ import createEle from "./createEle";
 import showList from "./createOnScreen";
 import newItemControl from './newItemControl';
 import toDoList from "./toDoList";
+import storeLocally from './storeLocally';
 
 function showProjects(projects) {
     _createHeader(projects);
     projects.getProjects().forEach(list => {
-        _displayHeader(list);
-        showList(list);
+        if (document.querySelector('.listDiv') == null)
+            _displayHeader(list, projects);
+        showList(list, projects);
     });
 }
 
@@ -18,16 +20,16 @@ function _createHeader(projects) {
     content.appendChild(header);
 }
 
-function _displayHeader(list) {
-    const ele = _createListHeader(list);
+function _displayHeader(list, projects) {
+    const ele = _createListHeader(list, projects);
     _appendEle(ele);
 }
 
-function _createListHeader(list) {
+function _createListHeader(list, projects) {
     const name = list.getName().replace(' ', '_');
     const addButt = createEle('button', 'add item', `add${name}`);
     addButt.classList.add('add');
-    addButt.addEventListener('click', () => _clickToAdd(list));
+    addButt.addEventListener('click', () => _clickToAdd(list, projects));
     const newItemDiv = createEle('div', '', `newItem`);
     newItemDiv.classList.add('hide');
     const listDiv = createEle('div', '', `list`);
@@ -39,24 +41,21 @@ function _createTab(projects) {
     projects.getProjects().forEach(list => {
         const name = list.getName();
         const nameButt = createEle('button', `${name}`, `project_butt`);
-        nameButt.addEventListener('click', () => _changeToProject(list));
+        nameButt.addEventListener('click', () => _changeToProject(list, projects));
         tabDiv.appendChild(nameButt);
     })
     tabDiv.appendChild(_createAddProjectButt(projects));
     return tabDiv;
 }
 
-function _changeToProject(list) {
+function _changeToProject(list, projects) {
     _clearList();
     _displayHeader(list);
-    showList(list);
+    showList(list, projects);
 }
 
 function _clearList() {
     const content = document.querySelector('.content');
-    // content.removeChild(document.querySelector('.add'));
-    // content.removeChild(document.querySelector('.newItem'));
-    // content.removeChild(document.querySelector('.list'));
     content.removeChild(document.querySelector('.listDiv'));
 }
 
@@ -71,23 +70,9 @@ function _addProject(projects) {
     const newList = toDoList(proj_prompt);
     projects.addList(newList);
     const str = JSON.stringify(projects.toString())
-    checkJson(str);
+    storeLocally().storeProject(projects);
     _clearHeader();
     document.querySelector('.headerDiv').appendChild(_createTab(projects));
-}
-
-function checkJson(str) {
-    const projects = str.substring(1, str.length - 1).split('|');
-    console.log(projects);
-    const nameitems = projects[0].substring(1, projects[0].length - 1).split(':');
-    console.log(nameitems[0]);
-    console.log(nameitems[1]);
-    const itemArr = [];
-    const items = nameitems[1].split('.');
-    items.forEach(item => {
-        console.log(item.substring(1, item.length - 1));
-        itemArr.push()
-    })
 }
 
 function _clearHeader() {
@@ -96,10 +81,10 @@ function _clearHeader() {
         header.removeChild(header.firstChild);
 }
 
-function _clickToAdd(list) {
+function _clickToAdd(list, projects) {
     const newItem = newItemControl();
     console.log(list.getList());
-    newItem.storeNewItem(list);
+    newItem.storeNewItem(list, projects);
 }
 
 function _appendEle (ele) {

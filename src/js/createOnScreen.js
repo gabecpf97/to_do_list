@@ -4,43 +4,43 @@ import createEle from "./createEle";
 import editItem from "./editItem";
 import newItemControl from "./newItemControl";
 
-function showList(list) {
+function showList(list, projects) {
     const list_div = document.querySelector('.list');
     _clearScreen(list_div);
     if (list.getList()[0] == undefined)
-        _showEmpty(list_div, list);
+        _showEmpty(list_div, list, projects);
     else {
         for (let i = 0; i < list.getList().length; i++) {
-            _showItem(list_div, list, list.getList()[i], i);
+            _showItem(list_div, list, list.getList()[i], i, projects);
         }
     }
 }
 
-function _showEmpty(list_div, list) {
+function _showEmpty(list_div, list, projects) {
     const emptyDiv = createEle('div', 'click here to add new item', 'empty_item');
     list_div.appendChild(emptyDiv);
-    emptyDiv.addEventListener('click', () => newItemControl().storeNewItem(list));
+    emptyDiv.addEventListener('click', () => newItemControl().storeNewItem(list, projects));
 }
 
-function _showItem(list_div, list, item, i) {
-    list_div.appendChild(_appendItem(list, _getItem(item), item, i));
+function _showItem(list_div, list, item, i, projects) {
+    list_div.appendChild(_appendItem(list, _getItem(item), item, i), projects);
 }
 
-function _appendItem (list, item_div, item, i) {
+function _appendItem (list, item_div, item, i, projects) {
     const itemDiv = createEle('div', '', `item`);
     itemDiv.classList.add('item');
-    itemDiv.appendChild(_createBasicDiv(list, item_div, item, i));
+    itemDiv.appendChild(_createBasicDiv(list, item_div, item, i, projects));
     itemDiv.appendChild(_createDes(item_div.des));
     return itemDiv;
 }
 
-function _createBasicDiv(list, item_div, item, i) {
+function _createBasicDiv(list, item_div, item, i, projects) {
     const basicDiv = createEle('div', '', 'basic');
     basicDiv.appendChild(item_div.status);
     basicDiv.appendChild(item_div.title);
     basicDiv.appendChild(item_div.date);
     basicDiv.appendChild(item_div.priority);
-    basicDiv.appendChild(_createEditButt(item, list));
+    basicDiv.appendChild(_createEditButt(item, list, projects));
     basicDiv.appendChild(_createDeleteButt(list, i));
     basicDiv.appendChild(_createExpandButt(item_div.des));
     return basicDiv;
@@ -104,9 +104,9 @@ function _removeItem(list, i) {
     list.removeItem(i);
 }
 
-function _createEditButt(item, list) {
+function _createEditButt(item, list, projects) {
     const editButt = createEle('button', 'edit', 'edit');
-    editButt.addEventListener('click', () => editItem().editIt(item, list));
+    editButt.addEventListener('click', () => editItem().editIt(item, list, projects));
     return editButt;
 }
 

@@ -33,7 +33,9 @@ function _createListHeader(list, projects) {
     const newItemDiv = createEle('div', '', `newItem`);
     newItemDiv.classList.add('hide');
     const listDiv = createEle('div', '', `list`);
-    return {newItemDiv, listDiv, addButt};
+    const editProjectButt = createEle('button', 'Change Project Name', 'changePName');
+    editProjectButt.addEventListener('click', () => _changePName(list, projects));
+    return {newItemDiv, listDiv, addButt, editProjectButt};
 }
 
 function _createTab(projects) {
@@ -69,7 +71,6 @@ function _addProject(projects) {
     const proj_prompt = prompt('Project Name:', 'New_project');
     const newList = toDoList(proj_prompt);
     projects.addList(newList);
-    const str = JSON.stringify(projects.toString())
     storeLocally().storeProject(projects);
     _clearHeader();
     document.querySelector('.headerDiv').appendChild(_createTab(projects));
@@ -85,6 +86,20 @@ function _clickToAdd(list, projects) {
     const newItem = newItemControl();
     console.log(list.getList());
     newItem.storeNewItem(list, projects);
+}
+
+function _changePName(list, projects) {
+    const newName = prompt('What is the new name of the project?', list.getName());
+    list.setName(newName);
+    storeLocally().storeProject(projects);
+    _clearAll();
+    showProjects(projects);
+}
+
+function _clearAll() {
+    const content = document.querySelector('.content');
+    while (content.firstChild != null)
+        content.removeChild(content.firstChild);
 }
 
 function _appendEle (ele) {

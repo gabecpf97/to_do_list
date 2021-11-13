@@ -19,6 +19,9 @@
   "homepage": "https://github.com/gabecpf97/to_do_list#readme",
   "devDependencies": {
     "css-loader": "^6.5.1",
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.62.1",

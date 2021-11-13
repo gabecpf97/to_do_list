@@ -1,7 +1,4 @@
-import toDoItem from "./toDoItem";
 import toDoList from "./toDoList";
-import showIt from "./createOnScreen";
-import newItemControl from "./newItemControl";
 import '../style.css'
 import listControl from "./listControl";
 import showProjects from "./showProjects";

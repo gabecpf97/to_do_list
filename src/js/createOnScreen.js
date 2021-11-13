@@ -24,7 +24,7 @@ function _showEmpty(list_div, list, projects) {
 }
 
 function _showItem(list_div, list, item, i, projects) {
-    list_div.appendChild(_appendItem(list, _getItem(item), item, i, projects));
+    list_div.appendChild(_appendItem(list, _getItem(item, projects), item, i, projects));
 }
 
 function _appendItem (list, item_div, item, i, projects) {
@@ -47,12 +47,12 @@ function _createBasicDiv(list, item_div, item, i, projects) {
     return basicDiv;
 }
 
-function _getItem(item) {
+function _getItem(item, projects) {
     const title = createEle('div', item.getTitle(), 'title');
     const des = createEle('div', item.getDes(), 'des');
     const date = createEle('div', item.getDate(), 'date');
     const priority = createEle('div', item.getPriority(), 'priority');
-    const status = _createStatusDiv(item);
+    const status = _createStatusDiv(item, projects);
     return {title, des, date, priority, status};
 }
 
@@ -61,21 +61,14 @@ function _clearScreen(list_div) {
         list_div.removeChild(list_div.firstChild);
 }
 
-function _createStatusDiv(item) {
+function _createStatusDiv(item, projects) {
     const statusDiv = createEle('div', '', 'status');
-    const statusLabel = _createLabel();
-    const statusCheck = _createCheck(item);
+    const statusCheck = _createCheck(item, projects);
     statusDiv.appendChild(statusCheck);
     return statusDiv;
 }
 
-function _createLabel() {
-    const statusLabel = createEle('label', 'Completed', 'status_l');
-    statusLabel.htmlFor = 'status';
-    return statusLabel;
-}
-
-function _createCheck(item) {
+function _createCheck(item, projects) {
     const statusCheck = createEle('input', '', 'status_c');
     statusCheck.type = 'checkbox';
     statusCheck.name = 'status';
@@ -83,6 +76,7 @@ function _createCheck(item) {
         statusCheck.checked = true;
     statusCheck.addEventListener('change', () => {
         item.setStatus();
+        storeLocally().storeProject(projects);
     });
     return statusCheck;
 }
@@ -95,7 +89,7 @@ function _createDeleteButt(list, i, projects) {
 
 function _deleteEntry(list, i, projects) {
     _removeItem(list, i, projects);
-    showList(list);
+    showList(list, projects);
 }
 
 function _removeItem(list, i, projects) {

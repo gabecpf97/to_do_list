@@ -38,7 +38,7 @@ function _changeData(item, list, projects) {
         _storeChanges(item);
         _removePrompt();
         if (list.getList() != null)
-            showList(list);
+            showList(list, projects);
         storeLocally().storeProject(projects);
     });
 }

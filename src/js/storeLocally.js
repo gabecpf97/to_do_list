@@ -67,7 +67,7 @@ function _createNewItem(itemAttr) {
 }
 
 function _checkStatus(item, status) {
-    if (status != item.getStatus())
+    if (status != item.getStatus().toString())
         item.setStatus();
 }
 

@@ -16,9 +16,17 @@ const listControl = () => {
         })
         projectString = projectString.substring(0, projectString.length - 1);
         return projectString;
-    }    
+    }
+    
+    const removeList = (listName) => {
+       for (let i = 0; i < projects.length; i++) {
+            if (projects[i].getName() == listName) {
+                projects.splice(i, 1);
+            }
+        };
+    }
 
-    return {getProjects, addList, toString};
+    return {getProjects, addList, toString, removeList};
 }
 
 export default listControl;

@@ -3,6 +3,7 @@
 import createEle from "./createEle";
 import editItem from "./editItem";
 import newItemControl from "./newItemControl";
+import storeLocally from './storeLocally';
 
 function showList(list, projects) {
     const list_div = document.querySelector('.list');
@@ -23,7 +24,7 @@ function _showEmpty(list_div, list, projects) {
 }
 
 function _showItem(list_div, list, item, i, projects) {
-    list_div.appendChild(_appendItem(list, _getItem(item), item, i), projects);
+    list_div.appendChild(_appendItem(list, _getItem(item), item, i, projects));
 }
 
 function _appendItem (list, item_div, item, i, projects) {
@@ -41,7 +42,7 @@ function _createBasicDiv(list, item_div, item, i, projects) {
     basicDiv.appendChild(item_div.date);
     basicDiv.appendChild(item_div.priority);
     basicDiv.appendChild(_createEditButt(item, list, projects));
-    basicDiv.appendChild(_createDeleteButt(list, i));
+    basicDiv.appendChild(_createDeleteButt(list, i, projects));
     basicDiv.appendChild(_createExpandButt(item_div.des));
     return basicDiv;
 }
@@ -86,22 +87,23 @@ function _createCheck(item) {
     return statusCheck;
 }
 
-function _createDeleteButt(list, i) {
+function _createDeleteButt(list, i, projects) {
     const deleButt = createEle('button', 'Delete', 'delete');
-    deleButt.addEventListener('click', e => _deleteEntry(list, i));
+    deleButt.addEventListener('click', e => _deleteEntry(list, i, projects));
     return deleButt;
 }
 
-function _deleteEntry(list, i) {
-    _removeItem(list, i);
+function _deleteEntry(list, i, projects) {
+    _removeItem(list, i, projects);
     showList(list);
 }
 
-function _removeItem(list, i) {
+function _removeItem(list, i, projects) {
     const list_div = document.querySelector('.list');
     while (list_div.firstChild != null) 
         list_div.removeChild(list_div.firstChild);
     list.removeItem(i);
+    storeLocally().storeProject(projects);
 }
 
 function _createEditButt(item, list, projects) {

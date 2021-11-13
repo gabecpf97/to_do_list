@@ -7,8 +7,7 @@ const editItem = () => {
         _showForm();
         createPrompt().createIt('SAVE');
         _fillData(item);
-        _changeData(item, list);
-        storeLocally().storeProject(projects);
+        _changeData(item, list, projects);
     }
     return {editIt};
 }
@@ -34,12 +33,13 @@ const _promptA = () => {
     return {title, des, date, priority};
 }
 
-function _changeData(item, list) {
+function _changeData(item, list, projects) {
     document.querySelector('.fin').addEventListener('click', () =>  {
         _storeChanges(item);
         _removePrompt();
         if (list.getList() != null)
             showList(list);
+        storeLocally().storeProject(projects);
     });
 }
 

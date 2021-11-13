@@ -35,7 +35,9 @@ function _createListHeader(list, projects) {
     const listDiv = createEle('div', '', `list`);
     const editProjectButt = createEle('button', 'Change Project Name', 'changePName');
     editProjectButt.addEventListener('click', () => _changePName(list, projects));
-    return {newItemDiv, listDiv, addButt, editProjectButt};
+    const deleteProject = createEle('button', 'Delete project', 'delPButt');
+    deleteProject.addEventListener('click', () => _deleteProject(list, projects));
+    return {newItemDiv, listDiv, addButt, editProjectButt, deleteProject};
 }
 
 function _createTab(projects) {
@@ -52,7 +54,7 @@ function _createTab(projects) {
 
 function _changeToProject(list, projects) {
     _clearList();
-    _displayHeader(list);
+    _displayHeader(list, projects);
     showList(list, projects);
 }
 
@@ -84,13 +86,19 @@ function _clearHeader() {
 
 function _clickToAdd(list, projects) {
     const newItem = newItemControl();
-    console.log(list.getList());
     newItem.storeNewItem(list, projects);
 }
 
 function _changePName(list, projects) {
     const newName = prompt('What is the new name of the project?', list.getName());
     list.setName(newName);
+    storeLocally().storeProject(projects);
+    _clearAll();
+    showProjects(projects);
+}
+
+function _deleteProject(list, projects) {
+    projects.removeList(list.getName());
     storeLocally().storeProject(projects);
     _clearAll();
     showProjects(projects);
